@@ -1,3 +1,5 @@
+![Build Status](https://github.com/GolubchikovKirill/JS_form_netology/actions/workflows/deploy.yml/badge.svg)
+
 # Домашнее задание к занятию "Работа с HTML-формами"
 
 Правила сдачи задания:

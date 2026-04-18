@@ -1,22 +1,18 @@
-import './css/style.css'
-import PopoverWidget from "./popover";
+import PopoverWidget from './popover';
 
-document.addEventListener('DOMContentLoaded', () => {
-    const widget = new PopoverWidget();
-    const btn = document.querySelector('.btn');
+export default function initPopoverWidget(doc = document) {
+  const button = doc.querySelector('.btn');
 
-    let currentPopoverId = null;
+  if (!button) {
+    return null;
+  }
 
-    btn.addEventListener('click', (e) => {
-        e.preventDefault();
+  const widget = new PopoverWidget();
 
-        if (currentPopoverId) {
-            widget.removePopover(currentPopoverId);
-            currentPopoverId = null;
-        } else {
-            const title = btn.dataset.title;
-            const content = btn.dataset.content;
-            currentPopoverId = widget.showPopover(title, content, btn);
-        }
-    });
-});
+  button.addEventListener('click', (event) => {
+    event.preventDefault();
+    widget.togglePopover(button.dataset.title, button.dataset.content, button);
+  });
+
+  return widget;
+}

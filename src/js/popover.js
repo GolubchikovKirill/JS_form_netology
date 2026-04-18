@@ -1,36 +1,55 @@
 export default class PopoverWidget {
-    constructor() {
-        this._popovers = []; // Список активных поповеров
+  constructor() {
+    this.currentPopover = null;
+  }
+
+  createPopover(title, content) {
+    const popover = document.createElement('div');
+    popover.className = 'popover';
+    popover.innerHTML = `
+      <h3 class="popover-title">${title}</h3>
+      <div class="popover-content">${content}</div>
+      <div class="popover-arrow"></div>
+    `;
+
+    return popover;
+  }
+
+  positionPopover(popover, element) {
+    const { left, top, width } = element.getBoundingClientRect();
+    const popoverLeft = left + window.scrollX + width / 2 - popover.offsetWidth / 2;
+    const popoverTop = top + window.scrollY - popover.offsetHeight - 12;
+
+    popover.style.left = `${popoverLeft}px`;
+    popover.style.top = `${popoverTop}px`;
+  }
+
+  showPopover(title, content, element) {
+    this.removePopover();
+
+    const popover = this.createPopover(title, content);
+    document.body.append(popover);
+    this.positionPopover(popover, element);
+    this.currentPopover = popover;
+
+    return popover;
+  }
+
+  removePopover() {
+    if (!this.currentPopover) {
+      return;
     }
 
-    showPopover(title, message, element) {
-        const popoverElement = document.createElement('div');
-        popoverElement.classList.add('popover');
+    this.currentPopover.remove();
+    this.currentPopover = null;
+  }
 
-        popoverElement.innerHTML = `
-            <h3 class="popover-title">${title}</h3>
-            <div class="popover-content">${message}</div>
-            <div class="arrow"></div>
-        `;
-
-        document.body.append(popoverElement);
-
-        const { left, top } = element.getBoundingClientRect();
-
-        popoverElement.style.left = `${left + window.scrollX + element.offsetWidth / 2 - popoverElement.offsetWidth / 2}px`;
-        popoverElement.style.top = `${top + window.scrollY + element.offsetHeight / 10}px`;
-
-        const id = performance.now();
-        this._popovers.push({ id, element: popoverElement });
-
-        return id
+  togglePopover(title, content, element) {
+    if (this.currentPopover) {
+      this.removePopover();
+      return null;
     }
 
-    removePopover(id) {
-        const popover = this._popovers.find((p) => p.id === id);
-        if (popover) {
-            popover.element.remove();
-            this._popovers = this._popovers.filter((p) => p.id !== id);
-        }
-    }
+    return this.showPopover(title, content, element);
+  }
 }

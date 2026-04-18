@@ -1,0 +1,41 @@
+{
+  "name": "forms",
+  "version": "1.0.0",
+  "description": "Правила сдачи задания: 1. **Важно**: в рамках этого ДЗ вы можете использовать любой пакетный менеджер 2. Всё должно собираться через Webpack (включая картинки и стили) и выкладываться на Github Pages через Appveyor. 3. В README.md должен быть размещён бейджик сборки и ссылка на Github Pages 4. В качестве результата присылайте проверяющему ссылки на ваши GitHub-проекты.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --runInBand",
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "pree2e": "npm run build",
+    "e2e": "jest --testPathPattern=e2e"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GolubchikovKirill/JS_form_netology.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/GolubchikovKirill/JS_form_netology/issues"
+  },
+  "homepage": "https://golubchikovkirill.github.io/JS_form_netology/",
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "babel-jest": "^30.2.0",
+    "babel-loader": "^10.1.1",
+    "css-loader": "^7.1.4",
+    "html-webpack-plugin": "^5.6.6",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "style-loader": "^4.0.0",
+    "webpack-cli": "^7.0.2",
+    "webpack-dev-server": "^5.2.3"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
+  }
+}
